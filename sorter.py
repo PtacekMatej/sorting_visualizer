@@ -91,6 +91,45 @@ class Sorter:
     def quickSort(self, screen):
         self.quickSortHelper(screen, 0, self.size)
 
+
+    def heapChildrenIdx(self, x, size):
+        result = []
+        if 2*x+1 < size:
+            result.append(2*x+1)
+        if 2*x+2 < size:
+            result.append(2*x+2)
+        return result
+    
+    def bubbleDown(self, x, size, screen):
+        children = self.heapChildrenIdx(x, size)
+        if len(children) == 0:
+            return
+        if len(children) == 1 and self.cmp(x, children[0], screen):
+            self.swap(x, children[0], screen)
+            self.bubbleDown(children[0], size, screen)
+        if len(children) == 2:
+            maxChild = children[0]
+            if self.cmp(children[0], children[1], screen):
+                maxChild = children[1]
+            if self.cmp(x, maxChild, screen):
+                self.swap(x, maxChild, screen)
+                self.bubbleDown(maxChild, size, screen)
+
+    def heapify(self, screen):
+        for i in reversed(range(self.size//2)):
+            self.bubbleDown(i, self.size, screen)
+
+    def heapSort(self, screen):
+        size = self.size - 1
+        self.heapify(screen)
+        while size > 0:
+            self.swap(0, size, screen)
+            self.bubbleDown(0, size, screen)
+            size -= 1
+
+        
+
+
     def __init__(self, size):
         self.size = size
         self.arr = [i+1 for i in range(size)]

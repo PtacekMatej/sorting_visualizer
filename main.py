@@ -22,7 +22,7 @@ def main():
     textRect = text.get_rect()
 
 
-    #pg.mouse.set_visible(False)
+    pg.mouse.set_visible(False)
 
     s = Sorter(100)
         
@@ -33,6 +33,9 @@ def main():
                 pg.quit()
                 sys.exit()
         
+
+        s.shuffle()
+        s.heapSort(screen)
         s.shuffle()
         s.quickSort(screen)
         s.shuffle()
